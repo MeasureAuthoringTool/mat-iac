@@ -11,7 +11,7 @@ resource "aws_vpc" "bmat-dev" {
 
   tags = "${
     map(
-      "Name", "terraform-eks-bmat-dev-node",
+      "Name", "bmat-dev-eks-node",
       "kubernetes.io/cluster/${var.cluster-name}", "shared",
     )
   }"
@@ -26,7 +26,7 @@ resource "aws_subnet" "bmat-dev" {
 
   tags = "${
     map(
-      "Name", "terraform-eks-bmat-dev-node",
+      "Name", "bmat-dev-eks-node",
       "kubernetes.io/cluster/${var.cluster-name}", "shared",
     )
   }"
@@ -36,7 +36,7 @@ resource "aws_internet_gateway" "bmat-dev" {
   vpc_id = "${aws_vpc.bmat-dev.id}"
 
   tags = {
-    Name = "terraform-eks-bmat-dev"
+    Name = "bmat-dev-eks"
     Project = "bonnie-mat"
   }
 }

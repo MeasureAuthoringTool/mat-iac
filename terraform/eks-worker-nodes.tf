@@ -8,7 +8,7 @@
 #
 
 resource "aws_iam_role" "bmat-dev-node" {
-  name = "terraform-eks-bmat-dev-node"
+  name = "bmat-dev-eks-node"
 
   assume_role_policy = <<POLICY
 {
@@ -42,12 +42,12 @@ resource "aws_iam_role_policy_attachment" "bmat-dev-node-AmazonEC2ContainerRegis
 }
 
 resource "aws_iam_instance_profile" "bmat-dev-node" {
-  name = "terraform-eks-bmat-dev"
+  name = "bmat-dev-eks"
   role = "${aws_iam_role.bmat-dev-node.name}"
 }
 
 resource "aws_security_group" "bmat-dev-node" {
-  name        = "terraform-eks-bmat-dev-node"
+  name        = "bmat-dev-eks-node"
   description = "Security group for all nodes in the cluster"
   vpc_id      = "${aws_vpc.bmat-dev.id}"
 
@@ -60,7 +60,7 @@ resource "aws_security_group" "bmat-dev-node" {
 
   tags = "${
     map(
-     "Name", "terraform-eks-bmat-dev-node",
+     "Name", "bmat-dev-eks-node",
      "kubernetes.io/cluster/${var.cluster-name}", "owned",
     )
   }"
@@ -114,7 +114,7 @@ resource "aws_launch_configuration" "bmat-dev" {
   iam_instance_profile        = "${aws_iam_instance_profile.bmat-dev-node.name}"
   image_id                    = "${data.aws_ami.eks-worker.id}"
   instance_type               = "m4.large"
-  name_prefix                 = "terraform-eks-bmat-dev"
+  name_prefix                 = "bmat-dev-eks"
   security_groups             = ["${aws_security_group.bmat-dev-node.id}"]
   user_data_base64            = "${base64encode(local.bmat-dev-node-userdata)}"
 
@@ -128,12 +128,12 @@ resource "aws_autoscaling_group" "bmat-dev" {
   launch_configuration = "${aws_launch_configuration.bmat-dev.id}"
   max_size             = 2
   min_size             = 1
-  name                 = "terraform-eks-bmat-dev"
+  name                 = "bmat-dev-eks"
   vpc_zone_identifier  = "${aws_subnet.bmat-dev[*].id}"
 
   tag {
     key                 = "Name"
-    value               = "terraform-eks-bmat-dev"
+    value               = "bmat-dev-eks"
     propagate_at_launch = true
   }
 

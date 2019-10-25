@@ -6,7 +6,7 @@
 #
 
 resource "aws_iam_role" "bmat-dev-cluster" {
-  name = "terraform-eks-bmat-dev-cluster"
+  name = "bmat-dev-eks-cluster"
 
   assume_role_policy = <<POLICY
 {
@@ -35,7 +35,7 @@ resource "aws_iam_role_policy_attachment" "bmat-dev-cluster-AmazonEKSServicePoli
 }
 
 resource "aws_security_group" "bmat-dev-cluster" {
-  name        = "terraform-eks-bmat-dev-cluster"
+  name        = "bmat-dev-eks-cluster"
   description = "Cluster communication with worker nodes"
   vpc_id      = "${aws_vpc.bmat-dev.id}"
 
