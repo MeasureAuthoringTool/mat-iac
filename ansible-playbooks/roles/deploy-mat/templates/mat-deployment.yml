@@ -1,0 +1,63 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: measure-authoring-tool
+  namespace: "{{ namespace }}"
+  labels:
+    app: measure-authoring-tool
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: measure-authoring-tool
+  template:
+    metadata:
+      labels:
+        app: measure-authoring-tool
+    spec:
+      volumes:
+        - name: app-volume
+          emptyDir: {}
+      initContainers:
+        - name: war
+          image: measure-authoring-tool:0.1
+          imagePullPolicy: IfNotPresent
+          command:
+            - "sh"
+            - "-c"
+            - "cp /*.war /app"
+          volumeMounts:
+            - name: app-volume
+              mountPath: /app
+      containers:
+        - name: mat-tomcat
+          image: mat-tomcat:0.1
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: JAVA_OPTS
+              valueFrom:
+                secretKeyRef:
+                  name: mat-java-opts
+                  key: java_opts
+          volumeMounts:
+            - name: app-volume
+              mountPath: /usr/local/tomcat/webapps
+          ports:
+            - containerPort: {{ internalPort }}
+              hostPort: 8009
+              name: http
+          livenessProbe:
+            httpGet:
+              path: /MeasureAuthoringTool
+              port: {{ internalPort }}
+            initialDelaySeconds: 60
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /MeasureAuthoringTool
+              port: {{ internalPort }}
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            failureThreshold: 6
+...

@@ -1,0 +1,22 @@
+---
+- name: Deploy the MeasureAuthoringTool Namespace
+  when: namespace != 'default'
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'namespace.yml') }}"
+
+- name: Create the Kubernetes Secret containing MAT's JAVA_OPTS
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'mat-java-opts.yml') }}"
+
+- name: Deploy the MeasureAuthoringTool Kubernetes Deployment
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'mat-deployment.yml') }}"
+
+- name: Deploy the MeasureAuthoringTool Kubernetes Service
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'mat-service.yml') }}"
+...

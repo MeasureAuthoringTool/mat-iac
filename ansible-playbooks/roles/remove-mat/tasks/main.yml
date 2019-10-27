@@ -1,0 +1,25 @@
+---
+- name: Remove the MeasureAuthoringTool Kubernetes Service
+  k8s:
+    state: absent
+    api_version: v1
+    kind: Service
+    namespace: "{{ namespace }}"
+    name: measure-authoring-tool-service
+
+- name: Remove the MeasureAuthoringTool Kubernetes Deployment
+  k8s:
+    state: absent
+    api_version: apps/v1
+    kind: Deployment
+    namespace: "{{ namespace }}"
+    name: measure-authoring-tool
+
+- name: Remove the Kubernetes Secret containing MAT's JAVA_OPTS
+  k8s:
+    state: absent
+    api_version: v1
+    kind: Secret
+    namespace: "{{ namespace }}"
+    name: mat-java-opts
+...

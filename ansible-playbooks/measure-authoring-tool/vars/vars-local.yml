@@ -1,0 +1,7 @@
+---
+namespace: default
+internalPort: 8080
+matDbUser: "{{ vault_matDbUser}}"
+matDbPassword: "{{ vault_matDbPassword }}"
+matDbUrl: "{{ vault_matDbUrl }}"
+...

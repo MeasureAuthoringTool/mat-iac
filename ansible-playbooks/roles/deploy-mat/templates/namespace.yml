@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    app: measure-authoring-tool
+    name: "{{ namespace }}"
+  name: "{{ namespace }}"
+...
