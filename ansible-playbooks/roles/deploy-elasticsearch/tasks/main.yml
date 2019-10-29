@@ -1,0 +1,17 @@
+---
+- name: Deploy the Elasticsearch Namespace
+  when: namespace != 'default'
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'namespace.yml') }}"
+
+- name: Deploy the Elasticsearch StatefulSet
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'es-statefulset.yml') }}"
+
+- name: Deploy the Elasticsearch Service
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'es-svc.yml') }}"
+...
