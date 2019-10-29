@@ -1,0 +1,8 @@
+---
+namespace: default
+matDbName: MAT_APP_BLANK
+mysqlUsername: mysqluser
+mysqlRootPassword: "{{ vault_mysqlRootPassword }}"
+mysqlPassword: "{{ vault_mysqlPassword }}"
+mysqlVersion: 5.7.14
+...

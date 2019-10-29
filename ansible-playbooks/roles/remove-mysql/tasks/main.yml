@@ -1,0 +1,33 @@
+---
+- name: Remove the MySQL Kubernetes Deployment
+  k8s:
+    state: absent
+    api_version: v1
+    kind: Deployment
+    namespace: "{{ namespace }}"
+    name: mysql
+
+- name: Remove the MySQL initialization ConfigMap
+  k8s:
+    state: absent
+    api_version: v1
+    kind: ConfigMap
+    namespace: "{{ namespace }}"
+    name: mysql-initialization
+
+- name: Remove the MySQL Kubernetes Service
+  k8s:
+    state: absent
+    api_version: v1
+    kind: Service
+    namespace: "{{ namespace }}"
+    name: mysql
+
+- name: Remove the Kubernetes Secret for MySQL
+  k8s:
+    state: absent
+    api_version: v1
+    kind: Secret
+    namespace: "{{ namespace }}"
+    name: mysql-secret
+...

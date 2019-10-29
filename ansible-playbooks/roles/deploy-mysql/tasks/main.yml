@@ -1,0 +1,32 @@
+---
+- name: Deploy the MySQL Namespace
+  when: namespace != 'default'
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'namespace.yml') }}"
+
+- name: Create the Kubernetes Secret containing MySQL's root password
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'mysql-secret.yml') }}"
+
+- name: Create the PersistentVolumeClaim for MySQL
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'mysql-pvc.yml') }}"
+
+- name: Create the ConfigMap for MySQL initialization
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'mysql-initialization.yml') }}"
+
+- name: Create the MySQL Kubernetes Deployment
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'mysql-deployment.yml') }}"
+
+- name: Deploy the MySQL Kubernetes Service
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'mysql-service.yml') }}"
+...
