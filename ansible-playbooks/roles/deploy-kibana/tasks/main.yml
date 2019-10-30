@@ -1,0 +1,17 @@
+---
+- name: Deploy the Kibana Namespace
+  when: namespace != 'default'
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'namespace.yml') }}"
+
+- name: Deploy the Kibana Deployment
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'kibana-deployment.yml') }}"
+
+- name: Deploy the Kibana Service
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'kibana-service.yml') }}"
+...

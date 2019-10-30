@@ -1,0 +1,4 @@
+---
+namespace: default
+esUrl: http://elasticsearch.default.svc.cluster.local:9200
+...

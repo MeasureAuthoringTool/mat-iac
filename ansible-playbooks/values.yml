@@ -1,4 +1,0 @@
-elasticsearch:
-  host: elasticsearch.default.svc.cluster.local
-awsSigningSidecar:
-  enabled: true

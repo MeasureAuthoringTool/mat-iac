@@ -1,0 +1,7 @@
+---
+- hosts: localhost
+  vars_files:
+    - vars/vars-local.yml
+  roles:
+    - ../roles/remove-kibana
+...
