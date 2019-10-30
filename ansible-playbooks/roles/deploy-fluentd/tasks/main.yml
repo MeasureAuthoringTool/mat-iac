@@ -1,0 +1,32 @@
+---
+- name: Deploy the Fluentd Namespace
+  when: namespace != 'default'
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'namespace.yml') }}"
+
+- name: Deploy the Fluentd ConfigMap
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'fluentd-configmap.yml') }}"
+
+- name: Deploy the Fluentd ServiceAccount
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'fluentd-serviceaccount.yml') }}"
+
+- name: Deploy the Fluentd ClusterRole
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'fluentd-clusterrole.yml') }}"
+
+- name: Deploy the Fluentd ClusterRoleBinding
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'fluentd-clusterrolebinding.yml') }}"
+
+- name: Deploy the Fluentd DaemonSet
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'fluentd-daemonset.yml') }}"
+...
