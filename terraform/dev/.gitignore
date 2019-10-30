@@ -1,0 +1,5 @@
+.terraform
+eks-admin-service-account.yaml
+metrics-server-0.3.6.tar.gz
+metrics-server-0.3.6/
+

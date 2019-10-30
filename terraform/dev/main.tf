@@ -65,14 +65,15 @@ module "vpc" {
 }
 
  module "bmat-eks" {
-   source       = "terraform-aws-modules/eks/aws"
-   version      = "6.0.2"
-   cluster_name = "${local.cluster_name}"
-   subnets      = module.vpc.private_subnets
-   vpc_id       = module.vpc.vpc_id
-   workers_role_name = "${local.cluster_name}-worker-role"
-   cluster_iam_role_name = "BMAT-dev-eks-role"
-   manage_cluster_iam_resources = false
+   source                           = "terraform-aws-modules/eks/aws"
+   version                          = "6.0.2"
+   cluster_name                     = "${local.cluster_name}"
+   subnets                          = module.vpc.private_subnets
+   vpc_id                           = module.vpc.vpc_id
+   workers_role_name                = "${local.cluster_name}-worker-role"
+   cluster_iam_role_name            = "${local.cluster_name}-eks-role"
+   manage_cluster_iam_resources     = false
+   cluster_enabled_log_types        = ["api","audit","authenticator","controllerManager","scheduler"]
 
    tags = {
      Project = "${local.project_name}"
@@ -80,10 +81,11 @@ module "vpc" {
 
    worker_groups = [
      {
-       name                          = "worker-group-A"
+       name                          = "worker-group"
        instance_type                 = "t2.medium"
        additional_userdata           = ""
        autoscaling_enabled           = true
+       protect_from_scale_in         = true
        asg_desired_capacity          = 2
        asg_max_size                  = 6
      },
