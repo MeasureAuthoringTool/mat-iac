@@ -1,0 +1,73 @@
+---
+- name: Remove the Istio Job (Custom Resource Definition 12)
+  k8s:
+    state: absent
+    api_version: batch/v1
+    kind: Job
+    namespace: "{{ namespace }}"
+    name: istio-init-crd-12-latest
+
+- name: Remove the Istio Job (Custom Resource Definition 11)
+  k8s:
+    state: absent
+    api_version: batch/v1
+    kind: Job
+    namespace: "{{ namespace }}"
+    name: istio-init-crd-11-latest
+
+- name: Remove the Istio Job (Custom Resource Definition 10)
+  k8s:
+    state: absent
+    api_version: batch/v1
+    kind: Job
+    namespace: "{{ namespace }}"
+    name: istio-init-crd-10-latest
+
+- name: Remove the Istio ClusterRoleBinding
+  k8s:
+    state: absent
+    api_version: rbac.authorization.k8s.io/v1
+    kind: ClusterRoleBinding
+    namespace: "{{ namespace }}"
+    name: istio-init-admin-role-binding-istio-system
+
+- name: Remove the Istio ClusterRole
+  k8s:
+    state: absent
+    api_version: rbac.authorization.k8s.io/v1
+    kind: ClusterRole
+    namespace: "{{ namespace }}"
+    name: istio-init-istio-system
+
+- name: Remove the Istio ServiceAccount
+  k8s:
+    state: absent
+    api_version: v1
+    kind: ServiceAccount
+    namespace: "{{ namespace }}"
+    name: istio-init-service-account
+
+- name: Remove the Istio ConfigMap (CustomResourceDefinition 12)
+  k8s:
+    state: absent
+    api_version: v1
+    kind: ConfigMap
+    namespace: "{{ namespace }}"
+    name: istio-crd-12
+
+- name: Remove the Istio ConfigMap (CustomResourceDefinition 11)
+  k8s:
+    state: absent
+    api_version: v1
+    kind: ConfigMap
+    namespace: "{{ namespace }}"
+    name: istio-crd-11
+
+- name: Remove the Istio ConfigMap (CustomResourceDefinition 10)
+  k8s:
+    state: absent
+    api_version: v1
+    kind: ConfigMap
+    namespace: "{{ namespace }}"
+    name: istio-crd-10
+...

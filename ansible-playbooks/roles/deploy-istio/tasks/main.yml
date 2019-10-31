@@ -1,0 +1,53 @@
+---
+- name: Deploy the Istio Namespace
+  when: namespace != 'default'
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'namespace.yml') }}"
+
+- name: Deploy the Istio ConfigMap (CustomResourceDefinition 10)
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'istio-configmap-crd-10.yml') }}"
+
+- name: Deploy the Istio ConfigMap (CustomResourceDefinition 11)
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'istio-configmap-crd-11.yml') }}"
+
+- name: Deploy the Istio ConfigMap (CustomResourceDefinition 12)
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'istio-configmap-crd-12.yml') }}"
+
+- name: Deploy the Istio ServiceAccount
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'istio-serviceaccount.yml') }}"
+
+- name: Deploy the Istio ClusterRole
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'istio-clusterrole.yml') }}"
+
+- name: Deploy the Istio ClusterRoleBinding
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'istio-clusterrolebinding.yml') }}"
+
+- name: Deploy the Istio Job (Custom Resource Definition 10)
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'istio-job-crd-10.yml') }}"
+
+- name: Deploy the Istio Job (Custom Resource Definition 11)
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'istio-job-crd-11.yml') }}"
+
+- name: Deploy the Istio Job (Custom Resource Definition 12)
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'istio-job-crd-12.yml') }}"
+
+...
