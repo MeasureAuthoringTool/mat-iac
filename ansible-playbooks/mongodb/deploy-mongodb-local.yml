@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  vars:
+    chart_state: present
+  vars_files:
+    - vars/vars-local.yml
+  roles:
+    - ../roles/mongodb
+...

@@ -1,0 +1,17 @@
+---
+- name: Create a the {{ namespace }} namespace
+  k8s:
+    name: "{{ namespace }}"
+    api_version: v1
+    kind: Namespace
+    state: present
+
+- set_fact:
+    chart_name: mongodb
+    chart_repo: stable/mongodb
+    chart_var_file: "{{ role_path }}/files/values.yml"
+    chart_overrides: "{{ mongo_chart_overrides }}"
+
+- import_role:
+    name: "{{ role_path }}/../helm"
+...

@@ -1,0 +1,25 @@
+---
+## See https://github.com/helm/charts/blob/master/stable/mongodb/values-production.yaml
+image:
+  tag: 4.0.13-debian-9-r0
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 27017
+
+replicaSet:
+  enabled: true
+  replicas:
+    secondary: 1
+    arbiter: 1
+
+  pdb:
+    enabled: true
+    minAvailable:
+      secondary: 1
+      arbiter: 1
+
+metrics:
+  enabled: false
+...

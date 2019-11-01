@@ -1,0 +1,6 @@
+---
+namespace: default
+mongo_chart_overrides:
+  service.type: LoadBalancer
+  replicaSet.enabled: false
+...
