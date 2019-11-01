@@ -1,0 +1,13 @@
+---
+# See https://github.com/elastic/helm-charts/tree/master/kibana
+elasticsearchHosts: "http://elasticsearch-master:9200"
+
+replicas: 1
+
+service:
+  type: ClusterIP
+  port: 5601
+
+ingress:
+  enabled: false
+...

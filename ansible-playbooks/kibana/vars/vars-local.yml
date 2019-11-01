@@ -1,4 +1,6 @@
 ---
 namespace: default
-esUrl: http://elasticsearch.default.svc.cluster.local:9200
+kibana_chart_overrides:
+  service.type: LoadBalancer
+  elasticsearchHosts: http://elasticsearch-master.default.svc.cluster.local:9200
 ...

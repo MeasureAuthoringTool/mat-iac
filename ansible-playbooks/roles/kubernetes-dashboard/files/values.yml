@@ -1,0 +1,16 @@
+---
+# See https://github.com/helm/charts/blob/master/stable/kubernetes-dashboard/values.yaml
+image:
+  tag: v1.10.1
+
+service:
+  type: ClusterIP
+  externalPort: 443
+
+ingress:
+  enabled: false
+
+serviceAccount:
+  create: true
+  name: kubernetes-dashboard
+...

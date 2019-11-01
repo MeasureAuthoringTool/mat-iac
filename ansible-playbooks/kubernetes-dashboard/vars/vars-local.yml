@@ -1,3 +1,4 @@
 ---
 namespace: default
+dashboard_chart_overrides:
 ...
