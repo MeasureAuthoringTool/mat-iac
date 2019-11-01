@@ -1,7 +1,13 @@
 ---
 - name: Create the Kubernetes resources using helm template
   vars:
-    overrides: "{% for key, value in chart_overrides.iteritems() %}--set {{ key }}={{ value }}{% if not loop.last %} {% endif %}{% endfor %}"
+    overrides: "
+    {% if chart_overrides is not none %}
+        {% for key, value in chart_overrides.iteritems() %}
+          --set {{ key }}={{ value }}
+          {% if not loop.last %} {% endif %}
+      {% endfor %}
+    {% endif %}"
   command: helm template {{ chart_name }} {{ chart_repo }} -f {{ chart_var_file }} {{ overrides }}
   register: k8s_template_raw
   changed_when: false

@@ -1,3 +1,4 @@
 ---
 namespace: default
+elasticsearch_chart_overrides:
 ...

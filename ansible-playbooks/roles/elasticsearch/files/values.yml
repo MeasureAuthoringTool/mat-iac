@@ -1,0 +1,24 @@
+---
+replicas: 1
+minimumMasterNodes: 1
+
+volumeClaimTemplate:
+  accessModes: [ "ReadWriteOnce" ]
+  resources:
+    requests:
+      storage: 8Gi
+
+rbac:
+  create: false
+
+podSecurityPolicy:
+  create: false
+
+persistence:
+  enabled: true
+
+service:
+  type: LoadBalancer
+
+maxUnavailable: 0
+
