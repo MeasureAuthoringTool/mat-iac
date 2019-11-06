@@ -2,7 +2,7 @@ terraform {
   required_version = ">= 0.12.2"
   backend "s3" {
     bucket = "bmat-tf-state"
-    key    = "BMAT-tfstate/BMAT-dev.tfstate"
+    key    = "BMAT-tfstate/BMAT-dev-eks.tfstate"
     region = "us-east-1"
   
   }
