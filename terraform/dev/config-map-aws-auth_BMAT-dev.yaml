@@ -10,6 +10,10 @@ data:
       groups:
         - system:bootstrappers
         - system:nodes
+    - userarn: arn:aws:iam::498284886784:user/andrew.bird
+      username: andrew.bird
+      groups:
+        - system:masters
 
   
   
