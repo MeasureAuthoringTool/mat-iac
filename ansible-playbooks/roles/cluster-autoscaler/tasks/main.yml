@@ -7,11 +7,11 @@
     state: present
 
 - set_fact:
-    chart_name: kubernetes-dashboard
-    chart_repo: stable/kubernetes-dashboard
+    chart_name: cluster-autoscaler
+    chart_repo: stable/cluster-autoscaler
     chart_var_file: "{{ role_path }}/files/values.yml"
-    chart_overrides: "{{ dashboard_chart_overrides }}"
-    helm_flags: "{{ dashboard_helm_flags }}"
+    chart_overrides: "{{ autoscaler_chart_overrides }}"
+    helm_flags: "{{ autoscaler_helm_flags }}"
 
 - import_role:
     name: "{{ role_path }}/../helm"

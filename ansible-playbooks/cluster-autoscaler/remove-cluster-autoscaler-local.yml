@@ -1,8 +1,9 @@
 ---
 - hosts: localhost
   vars:
-    chart_state: present
+    chart_state: absent
   vars_files:
     - vars/vars-local.yml
   roles:
-    - ../roles/istio
+    - ../roles/cluster-autoscaler
+...

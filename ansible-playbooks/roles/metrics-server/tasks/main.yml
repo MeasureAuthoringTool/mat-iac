@@ -7,11 +7,11 @@
     state: present
 
 - set_fact:
-    chart_name: kubernetes-dashboard
-    chart_repo: stable/kubernetes-dashboard
+    chart_name: metrics-server
+    chart_repo: stable/metrics-server
     chart_var_file: "{{ role_path }}/files/values.yml"
-    chart_overrides: "{{ dashboard_chart_overrides }}"
-    helm_flags: "{{ dashboard_helm_flags }}"
+    chart_overrides: "{{ metrics_chart_overrides }}"
+    helm_flags: "{{ metrics_helm_flags }}"
 
 - import_role:
     name: "{{ role_path }}/../helm"

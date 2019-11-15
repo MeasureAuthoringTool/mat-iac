@@ -1,14 +1,24 @@
 ---
+- name: Fetch the helm repo
+  command: helm fetch  {{ chart_repo }} --untar
+
 - name: Create the Kubernetes resources using helm template
   vars:
+    flags: "
+     {% if helm_flags is not none %}
+         {% for key, value in helm_flags.items() %}
+           --{{ key }} {{ value }}  
+           {% if not loop.last %} {% endif %}
+       {% endfor %}
+     {% endif %}"
     overrides: "
     {% if chart_overrides is not none %}
-        {% for key, value in chart_overrides.iteritems() %}
-          --set {{ key }}={{ value }}
+        {% for key, value in chart_overrides.items() %}
+          --set {{ key }}={{ value }} 
           {% if not loop.last %} {% endif %}
       {% endfor %}
     {% endif %}"
-  command: helm template {{ chart_name }} {{ chart_repo }} -f {{ chart_var_file }} {{ overrides }}
+  command: helm template {{ chart_name }} {{ chart_repo }} {{ flags }}  -f {{ chart_var_file }} {{ overrides }}
   register: k8s_template_raw
   changed_when: false
 

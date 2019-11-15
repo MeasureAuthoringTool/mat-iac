@@ -1,0 +1,6 @@
+---
+namespace: kube-system
+metrics_helm_flags:
+  namespace: kube-system
+  name: metrics-server
+metrics_chart_overrides:

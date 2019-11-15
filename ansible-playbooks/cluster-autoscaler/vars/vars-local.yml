@@ -1,0 +1,9 @@
+---
+namespace: kube-system
+autoscaler_helm_flags:
+  namespace: kube-system
+  name: cluster-autoscaler
+autoscaler_chart_overrides:
+    awsRegion: "{{awsRegion}}"
+    autoDiscovery.clusterName: "{{clusterName}}"
+    fullnameOverride: "cluster-autoscaler"

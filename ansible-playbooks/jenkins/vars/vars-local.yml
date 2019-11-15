@@ -1,0 +1,10 @@
+---
+namespace: jenkins
+jenkins_helm_flags:
+  namespace: jenkins
+  name: jenkins
+jenkins_chart_overrides:
+    master.serviceType: ClusterIP
+    fullnameOverride: jenkins
+    namespaceOverride: jenkins
+

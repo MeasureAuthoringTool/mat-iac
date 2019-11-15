@@ -5,4 +5,5 @@
   vars_files:
     - vars/vars-local.yml
   roles:
-    - ../roles/istio
+    - ../roles/cluster-autoscaler
+...
