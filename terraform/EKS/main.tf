@@ -82,7 +82,7 @@ module "vpc" {
    worker_groups = [
      {
        name                          = "worker-group"
-       instance_type                 = "t2.medium"
+       instance_type                 = "m5.large"
        additional_userdata           = ""
        autoscaling_enabled           = true
        protect_from_scale_in         = true
