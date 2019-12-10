@@ -10,6 +10,11 @@
     state: present
     definition: "{{ lookup('template', 'mat-java-opts.yml') }}"
 
+- name: Create the Kubernetes Secret containing MAT's context.xml
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'mat-context.yml') }}"
+
 - name: Deploy the MeasureAuthoringTool Kubernetes Deployment
   k8s:
     state: present

@@ -1,0 +1,49 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: mat-gw
+  namespace: mat
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - hosts:
+    - matdev.semanticbits.com
+    port:
+      name: http
+      number: 80
+      protocol: HTTP
+    tls:
+      httpsRedirect: true
+  - hosts:
+    - matdev.semanticbits.com
+    port:
+      name: https
+      number: 443
+      protocol: HTTPS
+    tls:
+      credentialName: matdev
+      mode: SIMPLE
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: mat-vs
+  namespace: mat
+spec:
+  hosts:
+  - matdev.semanticbits.com
+  gateways:
+  - mat-gw
+  http:
+    - match:
+      - uri:
+          prefix: "/MeasureAuthoringTool"
+      route:
+      - destination:
+          host: measure-authoring-tool-service
+          port:
+            number: 80
+

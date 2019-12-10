@@ -33,8 +33,8 @@ spec:
         imagePullPolicy: IfNotPresent
         resources:
           requests:
-            cpu: 100m
-            memory: 256Mi
+            cpu: 1000m
+            memory: 2048Mi
         env:
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
@@ -82,6 +82,9 @@ spec:
           mountPath: /var/lib/mysql
         - name: migrations
           mountPath: /docker-entrypoint-initdb.d
+        - name: config-volume
+          mountPath: /etc/my.cnf
+          subPath: my.cnf
       volumes:
       - name: migrations
         configMap:
@@ -89,4 +92,8 @@ spec:
       - name: data
         persistentVolumeClaim:
           claimName: mysql-pvc
+      - name: config-volume
+        configMap:
+          name: mysql-config
+          optional: true
 ...

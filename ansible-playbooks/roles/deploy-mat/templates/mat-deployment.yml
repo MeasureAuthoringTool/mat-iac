@@ -7,7 +7,7 @@ metadata:
   labels:
     app: measure-authoring-tool
 spec:
-  replicas: 1
+  replicas:  1
   selector:
     matchLabels:
       app: measure-authoring-tool
@@ -17,23 +17,20 @@ spec:
         app: measure-authoring-tool
     spec:
       volumes:
-        - name: app-volume
-          emptyDir: {}
-      initContainers:
-        - name: war
-          image: measure-authoring-tool:0.1
-          imagePullPolicy: IfNotPresent
-          command:
-            - "sh"
-            - "-c"
-            - "cp /*.war /app"
-          volumeMounts:
-            - name: app-volume
-              mountPath: /app
+        - name: app-context
+          secret: 
+            secretName: mat-context 
       containers:
         - name: mat-tomcat
-          image: mat-tomcat:0.1
+          image:  "{{ matImage }}"
           imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              memory: "1024Mi"
+              cpu: "500m"
+            limits:
+              memory: "2048Mi"
+              cpu: "1000m"
           env:
             - name: JAVA_OPTS
               valueFrom:
@@ -41,8 +38,9 @@ spec:
                   name: mat-java-opts
                   key: java_opts
           volumeMounts:
-            - name: app-volume
-              mountPath: /usr/local/tomcat/webapps
+            - name: app-context
+              mountPath: /usr/local/tomcat/conf/context.xml
+              subPath: context.xml
           ports:
             - containerPort: {{ internalPort }}
               hostPort: 8009
@@ -52,12 +50,11 @@ spec:
               path: /MeasureAuthoringTool
               port: {{ internalPort }}
             initialDelaySeconds: 60
-            periodSeconds: 30
+            periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /MeasureAuthoringTool
               port: {{ internalPort }}
             initialDelaySeconds: 60
-            periodSeconds: 30
+            periodSeconds: 10
             failureThreshold: 6
-...
