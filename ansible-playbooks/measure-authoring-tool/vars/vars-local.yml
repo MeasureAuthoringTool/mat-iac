@@ -4,5 +4,5 @@ internalPort: 8080
 matDbUser: "{{ vault_matDbUser}}"
 matDbPassword: "{{ vault_matDbPassword }}"
 matDbUrl: "jdbc:mysql://{{ vault_matDbHost }}:{{ vault_matDbPort }}/{{ vault_matDbName }}?autoReconnect=true&amp;useSSL=false"
-matImage: "{{ lookup('env','IMAGE') }}"
+matImage: "{{ lookup('params','IMAGE') }}"
 ...
