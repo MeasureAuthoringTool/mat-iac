@@ -1,0 +1,17 @@
+podTemplate(containers: [
+    containerTemplate(name: 'ansible', image: 'ansible/ansible-runner', ttyEnabled: true, command: 'cat'),
+ ]) {
+
+    node(POD_LABEL) {
+        stage('Run ansible-playbook') {
+          steps{
+            container('ansible') {
+                    sh 'yum install python2-openshift.noarch -y'
+                    sh 'yum install python2-kubernetes.noarch -y'
+                    ansiblePlaybook(playbook: '$PLAYBOOK', vaultCredentialsId:'ansible-vault')
+            }
+          }
+        }
+    }
+}
+
