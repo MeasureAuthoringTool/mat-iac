@@ -3,6 +3,9 @@ podTemplate(containers: [
  ]) {
 
     node(POD_LABEL) {
+        stage('checkout playbooks'){
+            checkout scm
+        }
         stage('Run ansible-playbook') {
             container('ansible') {
                     sh 'ls -l'
