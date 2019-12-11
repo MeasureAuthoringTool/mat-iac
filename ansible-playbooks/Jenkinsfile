@@ -5,6 +5,7 @@ podTemplate(containers: [
     node(POD_LABEL) {
         stage('Run ansible-playbook') {
             container('ansible') {
+                    sh 'env'
                     sh 'yum install python2-openshift.noarch -y'
                     sh 'yum install python2-kubernetes.noarch -y'
                     ansiblePlaybook(playbook: '${PLAYBOOK}', vaultCredentialsId:'ansible-vault')
